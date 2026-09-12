@@ -102,13 +102,13 @@ This process is run via analyze.py
 
 ### Examples
 #### Basic Run - Defaults to US Tech (AAPL, MSFT) vs. S&P 500
-python3 analyze.py
+```python3 analyze.py```
 
 #### Custom Tickers & Benchmark - Big 5 Canadian Banks vs. S&P/TSX Composite
-python3 analyze.py RY.TO TD.TO CM.TO BMO.TO BNS.TO -b ^GSPTSE
+```python3 analyze.py RY.TO TD.TO CM.TO BMO.TO BNS.TO -b ^GSPTSE```
 
 #### Custom Date Range
-python3 analyze.py AAPL MSFT -b ^GSPC -s 2020-01-01 -e 2023-01-01
+```python3 analyze.py AAPL MSFT -b ^GSPC -s 2020-01-01 -e 2023-01-01```
 
 ### Output
 After running, two output folders will be generated.
