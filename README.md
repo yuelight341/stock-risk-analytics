@@ -57,26 +57,26 @@ stock-risk-analytics/
 Calculates the following performance and risk metrics using SQL:
 
 ### Return
-01: Annualized Returns
-02: Cumulative Returns
-03: Jensen's Alpha
+- 01: Annualized Returns
+- 02: Cumulative Returns
+- 03: Jensen's Alpha
 
 ### Risk
-04: Annual Volatility
-05: Beta
-06: Best/Worst Day
+- 04: Annual Volatility
+- 05: Beta
+- 06: Best/Worst Day
 
 ### Tail Risk
-07: Max Drawdown
-08: VaR 95%
-09: CVaR 95%
+- 07: Max Drawdown
+- 08: VaR 95%
+- 09: CVaR 95%
 
 ### Risk-Adjusted Performance
-10: Sharpe Ratio
-11: Sortino Ratio
-12: Treynor Ratio
+- 10: Sharpe Ratio
+- 11: Sortino Ratio
+- 12: Treynor Ratio
 
-13: Correlation Matrix
+- 13: Correlation Matrix
 
 ## Installation
 **Requires:** Python 3.10+
