@@ -118,4 +118,3 @@ output/graphs/: Contains .png visualizations of the Wealth Index, Underwater Plo
 
 #### Example Output Graph
 ![Risk/Reward Scatterplot](docs/04_risk_reward.png)
-# stock-risk-analytics
