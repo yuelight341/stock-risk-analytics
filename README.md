@@ -76,6 +76,7 @@ Calculates the following performance and risk metrics using SQL:
 - 11: Sortino Ratio
 - 12: Treynor Ratio
 
+### Correlation
 - 13: Correlation Matrix
 
 ## Installation
