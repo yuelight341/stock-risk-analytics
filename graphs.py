@@ -100,7 +100,7 @@ def plot_risk_reward():
         plt.savefig(GRAPHS_DIR / "04_risk_reward.png")
         plt.close()
     except FileNotFoundError:
-        print("[WARNING] Could not find return/volatility CSVs. Run analytics.py first.")
+        print("[WARNING] Could not find return/volatility CSVs. Run run_queries.py first.")
 
 def main():
     GRAPHS_DIR.mkdir(parents=True, exist_ok=True)
