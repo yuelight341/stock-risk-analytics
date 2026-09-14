@@ -6,10 +6,11 @@ from scipy.optimize import minimize
 
 DB_PATH = "stock_data.db"
 OPTIMAL_PORTFOLIO_TICKER = "O_PORTFOLIO"
+EQUAL_WEIGHT_PORTFOLIO_TICKER = "E_PORTFOLIO"
 
-def calculate_and_insert_portfolio():
+def calculate_and_insert_optimal_portfolio():
     with sqlite3.connect(DB_PATH) as conn:
-        df = pd.read_sql("SELECT date, ticker, close FROM daily_prices WHERE is_benchmark = 0", conn)
+        df = pd.read_sql("SELECT date, ticker, close FROM daily_prices WHERE is_benchmark = 0 AND ticker != '{EQUAL_WEIGHT_PORTFOLIO_TICKER}'", conn)
     
     prices = df.pivot(index='date', columns='ticker', values='close')
     returns = prices.pct_change().dropna()
@@ -56,5 +57,42 @@ def calculate_and_insert_portfolio():
         
     print(f"\n'{OPTIMAL_PORTFOLIO_TICKER}' has been added to the database.")
 
+def calculate_and_insert_equal_weight_portfolio():
+    with sqlite3.connect(DB_PATH) as conn:
+        df = pd.read_sql(f"SELECT date, ticker, close FROM daily_prices WHERE is_benchmark = 0 AND ticker != '{OPTIMAL_PORTFOLIO_TICKER}'", conn)
+
+prices = df.pivot(index='date', columns='ticker', values='close')
+    returns = prices.pct_change().dropna()
+    
+    num_assets = len(returns.columns)
+
+    weights = np.array([1. / num_assets] * num_assets)
+    
+    weight_df = pd.DataFrame({'Ticker': returns.columns, 'Weight %': np.round(weights * 100, 2)})
+    print("\n--- Equal Weight Portfolio Weights ---")
+    print(weight_df.to_string(index=False))
+    
+    portfolio_daily_returns = returns.dot(weights)
+    
+    synthetic_prices = 100 * (1 + portfolio_daily_returns).cumprod()
+    
+    port_df = pd.DataFrame({
+        'date': portfolio_daily_returns.index,
+        'ticker': EQUAL_PORTFOLIO_TICKER,
+        'close': synthetic_prices,
+        'is_benchmark': 0
+    })
+    
+    port_df['daily_return'] = portfolio_daily_returns.values
+    port_df['sma_50d'] = port_df['close'].rolling(50).mean()
+    port_df['vol_30d'] = port_df['daily_return'].rolling(30).std() * np.sqrt(252)
+    
+    with sqlite3.connect(DB_PATH) as conn:
+        conn.execute(f"DELETE FROM daily_prices WHERE ticker = '{EQUAL_PORTFOLIO_TICKER}'")
+        port_df.to_sql("daily_prices", conn, if_exists="append", index=False)
+        
+    print(f"\n'{EQUAL_PORTFOLIO_TICKER}' has been added to the database.")
+
 if __name__ == "__main__":
-    calculate_and_insert_portfolio()
+    calculate_and_insert_optimal_portfolio()
+    calculate_and_insert_equal_weight_portfolio()
