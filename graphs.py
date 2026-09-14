@@ -64,7 +64,7 @@ def plot_underwater(df, benchmark_ticker):
     plt.savefig(GRAPHS_DIR / "02_underwater_plot.png")
     plt.close()
 
-def plot_tail_risk(df):
+def o_plot_tail_risk(df):
     port_returns = df[df['ticker'] == 'O_PORTFOLIO']['daily_return'].dropna()
     
     var_95 = np.percentile(port_returns, 5)
@@ -76,12 +76,32 @@ def plot_tail_risk(df):
     plt.axvline(var_95 * 100, color='orange', linestyle='dashed', linewidth=2, label=f'95% VaR: {var_95*100:.2f}%')
     plt.axvline(cvar_95 * 100, color='red', linestyle='dashed', linewidth=2, label=f'95% CVaR: {cvar_95*100:.2f}%')
     
-    plt.title("Portfolio Daily Returns Distribution (Tail Risk)")
+    plt.title("Optimal Portfolio Daily Returns Distribution (Tail Risk)")
     plt.xlabel("Daily Return (%)")
     plt.ylabel("Frequency")
     plt.legend()
     plt.tight_layout()
-    plt.savefig(GRAPHS_DIR / "03_tail_risk.png")
+    plt.savefig(GRAPHS_DIR / "03_optimal_tail_risk.png")
+    plt.close()
+
+def e_plot_tail_risk(df):
+    port_returns = df[df['ticker'] == 'E_PORTFOLIO']['daily_return'].dropna()
+    
+    var_95 = np.percentile(port_returns, 5)
+    cvar_95 = port_returns[port_returns <= var_95].mean()
+    
+    plt.figure()
+    sns.histplot(port_returns * 100, bins=100, kde=True, color='steelblue')
+    
+    plt.axvline(var_95 * 100, color='orange', linestyle='dashed', linewidth=2, label=f'95% VaR: {var_95*100:.2f}%')
+    plt.axvline(cvar_95 * 100, color='red', linestyle='dashed', linewidth=2, label=f'95% CVaR: {cvar_95*100:.2f}%')
+    
+    plt.title("Equal Weight Portfolio Daily Returns Distribution (Tail Risk)")
+    plt.xlabel("Daily Return (%)")
+    plt.ylabel("Frequency")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(GRAPHS_DIR / "04_equal_weight_tail_risk.png")
     plt.close()
 
 def plot_risk_reward():
@@ -103,7 +123,7 @@ def plot_risk_reward():
         plt.xlabel("Annual Volatility (%)")
         plt.ylabel("Annualized Return (%)")
         plt.tight_layout()
-        plt.savefig(GRAPHS_DIR / "04_risk_reward.png")
+        plt.savefig(GRAPHS_DIR / "05_risk_reward.png")
         plt.close()
     except FileNotFoundError:
         print("[WARNING] Could not find return/volatility CSVs. Run run_queries.py first.")
@@ -124,7 +144,7 @@ def main():
     
     plot_underwater(df, benchmark_ticker)
     
-    plot_tail_risk(df)
+    o_plot_tail_risk(df)
     
     plot_risk_reward()
     
