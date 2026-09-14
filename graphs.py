@@ -27,7 +27,7 @@ def plot_wealth_index(df, benchmark_ticker):
     for col in wealth.columns:
         if col == 'O_PORTFOLIO':
             plt.plot(wealth.index, wealth[col], label='O_PORTFOLIO', linewidth=3, color='lime')
-        elif col == 'E_PORTFOLIO'
+        elif col == 'E_PORTFOLIO':
             plt.plot(wealth.index, wealth[col], label='E_PORTFOLIO', linewidth=3, color='crimson')
         elif col == benchmark_ticker:
             plt.plot(wealth.index, wealth[col], label=f'{benchmark_ticker}', linewidth=2, color='black', linestyle='--')
