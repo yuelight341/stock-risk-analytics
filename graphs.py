@@ -49,7 +49,7 @@ def plot_underwater(df, benchmark_ticker):
     bm_drawdown = (prices[benchmark_ticker] - bm_rolling_max) / bm_rolling_max * 100
     
     plt.figure()
-    plt.fill_between(port_drawdown.index, port_drawdown, 0, color='crimson', alpha=0.3, label='PORTFOLIO')
+    plt.fill_between(port_drawdown.index, port_drawdown, 0, color='crimson', alpha=0.3, label='O_PORTFOLIO')
     plt.plot(bm_drawdown.index, bm_drawdown, color='black', linewidth=1, linestyle='--', label=f'{benchmark_ticker}')    
     plt.title("Underwater Plot (Historical Drawdowns)")
     plt.ylabel("Drawdown (%)")
@@ -59,7 +59,7 @@ def plot_underwater(df, benchmark_ticker):
     plt.close()
 
 def plot_tail_risk(df):
-    port_returns = df[df['ticker'] == '_PORTFOLIO']['daily_return'].dropna()
+    port_returns = df[df['ticker'] == 'O_PORTFOLIO']['daily_return'].dropna()
     
     var_95 = np.percentile(port_returns, 5)
     cvar_95 = port_returns[port_returns <= var_95].mean()
