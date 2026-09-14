@@ -117,4 +117,4 @@ output/results/: Contains cleaned, normalized .csv files for each computed metri
 output/graphs/: Contains .png visualizations of the Wealth Index, Underwater Plot (Drawdowns), Tail Risk Distribution, and Risk/Reward Scatterplot.
 
 #### Example Output Graph
-![Risk/Reward Scatterplot](docs/04_risk_reward.png)
+![Risk/Reward Scatterplot](example_graph.png)
