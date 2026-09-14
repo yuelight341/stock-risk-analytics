@@ -145,6 +145,8 @@ def main():
     plot_underwater(df, benchmark_ticker)
     
     o_plot_tail_risk(df)
+
+    e_plot_tail_risk(df)
     
     plot_risk_reward()
     
