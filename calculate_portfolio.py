@@ -5,7 +5,7 @@ import numpy as np
 from scipy.optimize import minimize
 
 DB_PATH = "stock_data.db"
-PORTFOLIO_TICKER = "O_PORTFOLIO"
+OPTIMAL_PORTFOLIO_TICKER = "O_PORTFOLIO"
 
 def calculate_and_insert_portfolio():
     with sqlite3.connect(DB_PATH) as conn:
@@ -40,7 +40,7 @@ def calculate_and_insert_portfolio():
     
     port_df = pd.DataFrame({
         'date': portfolio_daily_returns.index,
-        'ticker': PORTFOLIO_TICKER,
+        'ticker': OPTIMAL_PORTFOLIO_TICKER,
         'close': synthetic_prices,
         'is_benchmark': 0
     })
@@ -50,11 +50,11 @@ def calculate_and_insert_portfolio():
     port_df['vol_30d'] = port_df['daily_return'].rolling(30).std() * np.sqrt(252)
     
     with sqlite3.connect(DB_PATH) as conn:
-        conn.execute(f"DELETE FROM daily_prices WHERE ticker = '{PORTFOLIO_TICKER}'")
+        conn.execute(f"DELETE FROM daily_prices WHERE ticker = '{OPTIMAL_PORTFOLIO_TICKER}'")
         
         port_df.to_sql("daily_prices", conn, if_exists="append", index=False)
         
-    print(f"\n'{PORTFOLIO_TICKER}' has been added to the database.")
+    print(f"\n'{OPTIMAL_PORTFOLIO_TICKER}' has been added to the database.")
 
 if __name__ == "__main__":
     calculate_and_insert_portfolio()
