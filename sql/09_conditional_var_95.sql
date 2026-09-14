@@ -12,7 +12,6 @@ SELECT
 FROM s.daily_prices p
 JOIN var_threshold v USING (ticker)
 WHERE p.daily_return IS NOT NULL
-  AND p.is_benchmark = 0
   AND p.daily_return <= v.var_95
 GROUP BY p.ticker
 ORDER BY cvar_95_pct ASC;
