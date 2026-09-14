@@ -61,7 +61,7 @@ def calculate_and_insert_equal_weight_portfolio():
     with sqlite3.connect(DB_PATH) as conn:
         df = pd.read_sql(f"SELECT date, ticker, close FROM daily_prices WHERE is_benchmark = 0 AND ticker != '{OPTIMAL_PORTFOLIO_TICKER}'", conn)
 
-prices = df.pivot(index='date', columns='ticker', values='close')
+    prices = df.pivot(index='date', columns='ticker', values='close')
     returns = prices.pct_change().dropna()
     
     num_assets = len(returns.columns)
