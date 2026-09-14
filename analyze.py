@@ -19,7 +19,7 @@ def main():
 
     run_step(["get_data.py"] + user_args)
 
-    run_step(["optimal_portfolio.py"])
+    run_step(["calculate_portfolio.py"])
 
     run_step(["run_queries.py"])
 
