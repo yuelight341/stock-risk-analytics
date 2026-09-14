@@ -25,8 +25,8 @@ def plot_wealth_index(df, benchmark_ticker):
     
     plt.figure()
     for col in wealth.columns:
-        if col == '_PORTFOLIO':
-            plt.plot(wealth.index, wealth[col], label='PORTFOLIO', linewidth=3, color='crimson')
+        if col == 'O_PORTFOLIO':
+            plt.plot(wealth.index, wealth[col], label='O_PORTFOLIO', linewidth=3, color='crimson')
         elif col == benchmark_ticker:
             plt.plot(wealth.index, wealth[col], label=f'{benchmark_ticker}', linewidth=2, color='black', linestyle='--')
         else:
@@ -42,8 +42,8 @@ def plot_wealth_index(df, benchmark_ticker):
 def plot_underwater(df, benchmark_ticker):
     prices = df.pivot(index='date', columns='ticker', values='close').dropna()
     
-    port_rolling_max = prices['_PORTFOLIO'].cummax()
-    port_drawdown = (prices['_PORTFOLIO'] - port_rolling_max) / port_rolling_max * 100
+    port_rolling_max = prices['O_PORTFOLIO'].cummax()
+    port_drawdown = (prices['O_PORTFOLIO'] - port_rolling_max) / port_rolling_max * 100
     
     bm_rolling_max = prices[benchmark_ticker].cummax()
     bm_drawdown = (prices[benchmark_ticker] - bm_rolling_max) / bm_rolling_max * 100
