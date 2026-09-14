@@ -44,14 +44,18 @@ def plot_wealth_index(df, benchmark_ticker):
 def plot_underwater(df, benchmark_ticker):
     prices = df.pivot(index='date', columns='ticker', values='close').dropna()
     
-    port_rolling_max = prices['O_PORTFOLIO'].cummax()
-    port_drawdown = (prices['O_PORTFOLIO'] - port_rolling_max) / port_rolling_max * 100
+    o_port_rolling_max = prices['O_PORTFOLIO'].cummax()
+    o_port_drawdown = (prices['O_PORTFOLIO'] - o_port_rolling_max) / o_port_rolling_max * 100
+
+    e_port_rolling_max = prices['E_PORTFOLIO'].cummax()
+    e_port_drawdown = (prices['E_PORTFOLIO'] - e_port_rolling_max) / e_port_rolling_max * 100
     
     bm_rolling_max = prices[benchmark_ticker].cummax()
     bm_drawdown = (prices[benchmark_ticker] - bm_rolling_max) / bm_rolling_max * 100
     
     plt.figure()
-    plt.fill_between(port_drawdown.index, port_drawdown, 0, color='crimson', alpha=0.3, label='O_PORTFOLIO')
+    plt.fill_between(o_port_drawdown.index, o_port_drawdown, 0, color='crimson', alpha=0.3, label='O_PORTFOLIO')
+    plt.fill_between(e_port_drawdown.index, e_port_drawdown, 0, color='lime', alpha=0.3, label='E_PORTFOLIO')
     plt.plot(bm_drawdown.index, bm_drawdown, color='black', linewidth=1, linestyle='--', label=f'{benchmark_ticker}')    
     plt.title("Underwater Plot (Historical Drawdowns)")
     plt.ylabel("Drawdown (%)")
