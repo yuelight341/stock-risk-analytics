@@ -78,7 +78,7 @@ def calculate_and_insert_equal_weight_portfolio():
     
     port_df = pd.DataFrame({
         'date': portfolio_daily_returns.index,
-        'ticker': EQUAL_PORTFOLIO_TICKER,
+        'ticker': EQUAL_WEIGHT_PORTFOLIO_TICKER,
         'close': synthetic_prices,
         'is_benchmark': 0
     })
@@ -88,10 +88,10 @@ def calculate_and_insert_equal_weight_portfolio():
     port_df['vol_30d'] = port_df['daily_return'].rolling(30).std() * np.sqrt(252)
     
     with sqlite3.connect(DB_PATH) as conn:
-        conn.execute(f"DELETE FROM daily_prices WHERE ticker = '{EQUAL_PORTFOLIO_TICKER}'")
+        conn.execute(f"DELETE FROM daily_prices WHERE ticker = '{EQUAL_WEIGHT_PORTFOLIO_TICKER}'")
         port_df.to_sql("daily_prices", conn, if_exists="append", index=False)
         
-    print(f"\n'{EQUAL_PORTFOLIO_TICKER}' has been added to the database.")
+    print(f"\n'{EQUAL_WEIGHT_PORTFOLIO_TICKER}' has been added to the database.")
 
 if __name__ == "__main__":
     calculate_and_insert_optimal_portfolio()
