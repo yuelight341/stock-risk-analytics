@@ -5,7 +5,7 @@ import numpy as np
 from scipy.optimize import minimize
 
 DB_PATH = "stock_data.db"
-PORTFOLIO_TICKER = "_PORTFOLIO"
+PORTFOLIO_TICKER = "O_PORTFOLIO"
 
 def calculate_and_insert_portfolio():
     with sqlite3.connect(DB_PATH) as conn:
