@@ -2,7 +2,8 @@ WITH assets AS (
     SELECT ticker, date, daily_return
     FROM s.daily_prices
     WHERE is_benchmark = 0 
-       AND ticker <> '_PORTFOLIO'
+       AND ticker <> 'O_PORTFOLIO'
+       AND ticker <> 'E_PORTFOLIO'
        AND daily_return IS NOT NULL
 )
 SELECT 
