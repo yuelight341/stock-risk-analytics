@@ -4,7 +4,6 @@ WITH var_threshold AS (
         QUANTILE_CONT(daily_return, 0.05) AS var_95
     FROM s.daily_prices
     WHERE daily_return IS NOT NULL
-      AND is_benchmark = 0
     GROUP BY ticker
 )
 SELECT
