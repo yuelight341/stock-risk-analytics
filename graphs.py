@@ -54,8 +54,8 @@ def plot_underwater(df, benchmark_ticker):
     bm_drawdown = (prices[benchmark_ticker] - bm_rolling_max) / bm_rolling_max * 100
     
     plt.figure()
-    plt.fill_between(o_port_drawdown.index, o_port_drawdown, 0, color='crimson', alpha=0.3, label='O_PORTFOLIO')
-    plt.fill_between(e_port_drawdown.index, e_port_drawdown, 0, color='lime', alpha=0.3, label='E_PORTFOLIO')
+    plt.plot(o_port_drawdown.index, o_port_drawdown, color='crimson', linewidth=1, linestyle='-', label='O_PORTFOLIO')
+    plt.plot(e_port_drawdown.index, e_port_drawdown, color='lime', linewidth=1, linestyle='-', label='E_PORTFOLIO')
     plt.plot(bm_drawdown.index, bm_drawdown, color='black', linewidth=1, linestyle='--', label=f'{benchmark_ticker}')    
     plt.title("Underwater Plot (Historical Drawdowns)")
     plt.ylabel("Drawdown (%)")
