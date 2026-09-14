@@ -20,7 +20,7 @@ An automated financial analytics pipeline engineered to evaluate risk metrics an
     get_data.py  ──►  SQLite (stock_data.db)
         │
         ▼
-    optimal_portfolio.py  ──►  SQLite (stock_data.db)
+    calcluate_portfolio.py  ──►  SQLite (stock_data.db)
         │
         ▼
     run_queries.py  ──►  DuckDB (attach SQLite, run sql/*.sql)
@@ -39,7 +39,7 @@ All four scripts orchestrated with `analyze.py`
 stock-risk-analytics/
 ├── analyze.py                 # Central wrapper script
 ├── get_data.py                # Gets price data via yfinance → SQLite
-├── optimal_portfolio.py       # Long-only Markowitz Mean-Variance Optimization
+├── calculate_portfolio.py     # Long-only Markowitz Mean-Variance Optimization and equal weight portfolio
 ├── run_queries.py             # Attaches SQLite to DuckDB, runs sql/*.sql
 ├── graphs.py                  # Generates PNG visualizations
 ├── sql/
