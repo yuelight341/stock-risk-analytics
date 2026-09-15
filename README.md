@@ -11,6 +11,7 @@ An automated financial analytics pipeline engineered to evaluate risk metrics an
 ## Stack
 - **Languages:** Python, SQL
 - **Libraries:** yfinance, Pandas, NumPy, SciPy, SQLite, DuckDB, Matplotlib, Seaborn
+- **Visualization:** Tableau
 
 ## Architecture
 ```text
