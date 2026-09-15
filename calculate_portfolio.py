@@ -3,21 +3,11 @@ import pandas as pd
 import scipy as sp
 import numpy as np
 from scipy.optimize import minimize
-import os
 
 DB_PATH = "stock_data.db"
 CSV_PATH = "stock_data.csv"
 OPTIMAL_PORTFOLIO_TICKER = "O_PORTFOLIO"
 EQUAL_WEIGHT_PORTFOLIO_TICKER = "E_PORTFOLIO"
-
-def update_csv(port_df, ticker_name):
-    if os.path.exists(CSV_PATH):
-        csv_df = pd.read_csv(CSV_PATH)
-        csv_df = csv_df[csv_df['ticker'] != ticker_name]
-        updated_csv = pd.concat([csv_df, port_df], ignore_index=True)
-        updated_csv.to_csv(CSV_PATH, index=False)
-    else:
-        port_df.to_csv(CSV_PATH, index=False)
 
 def calculate_and_insert_optimal_portfolio():
     with sqlite3.connect(DB_PATH) as conn:
@@ -105,8 +95,6 @@ def calculate_and_insert_equal_weight_portfolio():
         port_df.to_sql("daily_prices", conn, if_exists="append", index=False)
         
     print(f"\n'{EQUAL_WEIGHT_PORTFOLIO_TICKER}' has been added to the database.")
-    update_csv(port_df, EQUAL_WEIGHT_PORTFOLIO_TICKER)
-    print(f"'{EQUAL_WEIGHT_PORTFOLIO_TICKER}' has been added to {CSV_PATH}.")
 
 if __name__ == "__main__":
     calculate_and_insert_optimal_portfolio()
