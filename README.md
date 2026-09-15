@@ -116,8 +116,8 @@ output/results/: Contains cleaned, normalized .csv files for each computed metri
 
 output/graphs/: Contains .png visualizations of the Wealth Index, Underwater Plot (Drawdowns), Tail Risk Distribution, and Risk/Reward Scatterplot.
 
-#### Interactive Tableau Dashboard
-[![Quantitative Risk Dashboard](tableau.png)](https://public.tableau.com/views/BigFiveBanksStockRiskAnalyticsPortfolioOptimization/Dashboard1)
-
 #### Example Output Graph
 ![Risk/Reward Scatterplot](example_graph.png)
+
+#### Interactive Tableau Dashboard
+[![Quantitative Risk Dashboard](tableau.png)](https://public.tableau.com/views/BigFiveBanksStockRiskAnalyticsPortfolioOptimization/Dashboard1)
