@@ -5,12 +5,22 @@ import numpy as np
 from scipy.optimize import minimize
 
 DB_PATH = "stock_data.db"
+CSV_PATH = "stock_data.csv"
 OPTIMAL_PORTFOLIO_TICKER = "O_PORTFOLIO"
 EQUAL_WEIGHT_PORTFOLIO_TICKER = "E_PORTFOLIO"
 
+def update_csv(port_df, ticker_name):
+    if os.path.exists(CSV_PATH):
+        csv_df = pd.read_csv(CSV_PATH)
+        csv_df = csv_df[csv_df['ticker'] != ticker_name]
+        updated_csv = pd.concat([csv_df, port_df], ignore_index=True)
+        updated_csv.to_csv(CSV_PATH, index=False)
+    else:
+        port_df.to_csv(CSV_PATH, index=False)
+
 def calculate_and_insert_optimal_portfolio():
     with sqlite3.connect(DB_PATH) as conn:
-        df = pd.read_sql("SELECT date, ticker, close FROM daily_prices WHERE is_benchmark = 0 AND ticker != '{EQUAL_WEIGHT_PORTFOLIO_TICKER}'", conn)
+        df = pd.read_sql(f"SELECT date, ticker, close FROM daily_prices WHERE is_benchmark = 0 AND ticker != '{EQUAL_WEIGHT_PORTFOLIO_TICKER}'", conn)
     
     prices = df.pivot(index='date', columns='ticker', values='close')
     returns = prices.pct_change().dropna()
@@ -56,6 +66,8 @@ def calculate_and_insert_optimal_portfolio():
         port_df.to_sql("daily_prices", conn, if_exists="append", index=False)
         
     print(f"\n'{OPTIMAL_PORTFOLIO_TICKER}' has been added to the database.")
+    update_csv(port_df, OPTIMAL_PORTFOLIO_TICKER)
+    print(f"'{OPTIMAL_PORTFOLIO_TICKER}' has been added to {CSV_PATH}.")
 
 def calculate_and_insert_equal_weight_portfolio():
     with sqlite3.connect(DB_PATH) as conn:
@@ -92,6 +104,8 @@ def calculate_and_insert_equal_weight_portfolio():
         port_df.to_sql("daily_prices", conn, if_exists="append", index=False)
         
     print(f"\n'{EQUAL_WEIGHT_PORTFOLIO_TICKER}' has been added to the database.")
+    update_csv(port_df, EQUAL_WEIGHT_PORTFOLIO_TICKER)
+    print(f"'{EQUAL_WEIGHT_PORTFOLIO_TICKER}' has been added to {CSV_PATH}.")
 
 if __name__ == "__main__":
     calculate_and_insert_optimal_portfolio()
