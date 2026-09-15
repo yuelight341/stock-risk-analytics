@@ -57,8 +57,6 @@ def calculate_and_insert_optimal_portfolio():
         port_df.to_sql("daily_prices", conn, if_exists="append", index=False)
         
     print(f"\n'{OPTIMAL_PORTFOLIO_TICKER}' has been added to the database.")
-    update_csv(port_df, OPTIMAL_PORTFOLIO_TICKER)
-    print(f"'{OPTIMAL_PORTFOLIO_TICKER}' has been added to {CSV_PATH}.")
 
 def calculate_and_insert_equal_weight_portfolio():
     with sqlite3.connect(DB_PATH) as conn:
