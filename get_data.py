@@ -37,7 +37,6 @@ def add_features(df, benchmark):
 def save(df, path=DB_PATH):
     with sqlite3.connect(path) as conn:
         df.to_sql("daily_prices", conn, if_exists="replace", index=False)
-    df.to_csv("stock_data.csv", index=False)
 
 def main(tickers, benchmark, start, end):
     all_tickers = sorted(set(tickers) | {benchmark})
