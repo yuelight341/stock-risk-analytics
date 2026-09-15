@@ -3,6 +3,7 @@ import pandas as pd
 import scipy as sp
 import numpy as np
 from scipy.optimize import minimize
+import os
 
 DB_PATH = "stock_data.db"
 CSV_PATH = "stock_data.csv"
