@@ -120,5 +120,5 @@ output/graphs/: Contains .png visualizations of the Wealth Index, Underwater Plo
 #### Example Output Graph
 ![Risk/Reward Scatterplot](example_graph.png)
 
-#### Interactive Tableau Dashboard
-[![Quantitative Risk Dashboard](tableau.png)](https://public.tableau.com/views/BigFiveBanksStockRiskAnalyticsPortfolioOptimization/Dashboard1)
+#### Interactive Tableau Risk vs. Return
+[![Graph](tableau.png)](https://public.tableau.com/app/profile/gisele.huang/viz/BigFiveBanksStockRiskAnalyticsPortfolioOptimization/Dashboard1)
